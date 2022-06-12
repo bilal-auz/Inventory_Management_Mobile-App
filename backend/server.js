@@ -1,6 +1,10 @@
 const express = require("express");
-
 const app = express();
+
+//Routes
+const userRoute = require("./routes/userRoutes");
+
+app.use("/api/user", userRoute);
 
 app.get("/", (req, res) => {
   res.send("API is running");
