@@ -14,7 +14,7 @@ const protect = (req, res, next) => {
 
       req._id = decoded.id;
     } catch (error) {
-      res.status(401).send("Not Authorized");
+      res.status(401).send(`Not Authorized. ERROR: ${error.message}`);
     }
 
     next();
