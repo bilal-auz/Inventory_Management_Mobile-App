@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  height: 90%;
 }
 
 .App-logo {
@@ -35,4 +36,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear{
+  display: none;
 }
