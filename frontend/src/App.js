@@ -8,9 +8,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <div className="App ">
+    <div className="App relative">
       <Route path="/" exact component={Login} />
-      <Route path="/dashboard" exact component={Dashboard} />
+      <Route path="/dashboard" component={Dashboard} />
       <ToastContainer
         position="bottom-center"
         autoClose={1300}
