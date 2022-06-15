@@ -58,6 +58,22 @@ function AddEggForm({ change, setChange }) {
     setSelectedFarm(e.target.value);
   };
 
+  const handleInput = (e) => {
+    const res = e.target.value.replace(/\D/g, "");
+    setW1Input(eggs_w1_input + res);
+    // const regexNumbers = "[0-9]";
+    // const keyCharCode = e.which;
+
+    // console.log(keyCharCode);
+    // if (keyCharCode >= 48 && keyCharCode <= 57)
+    //   setW1Input(eggs_w1_input + e.key);
+
+    // const input = parseInt(e.target.value);
+
+    // if (Number.isInteger(input)) setW1Input(input);
+    // setW1Input(e.target.value.match(regexNumbers).input);
+    // console.log(e.which);
+  };
   return (
     <div class="modal-box">
       <div className="flex flex-col gap-2 w-[96%]">
@@ -85,7 +101,7 @@ function AddEggForm({ change, setChange }) {
               class="input input-bordered input-md focus:outline-none"
               value={eggs_w1_input}
               onChange={(e) => {
-                setW1Input(e.target.value);
+                setW1Input(e.target.value.replace(/\D/g, ""));
               }}
             />
             <span className="px-[0.5rem]">1500g-1550g</span>
@@ -100,7 +116,7 @@ function AddEggForm({ change, setChange }) {
               class="input input-bordered input-md focus:outline-none"
               value={eggs_w2_input}
               onChange={(e) => {
-                setW2Input(e.target.value);
+                setW2Input(e.target.value.replace(/\D/g, ""));
               }}
             />
             <span className="px-[0.5rem]">1760g-1870g</span>
@@ -115,7 +131,7 @@ function AddEggForm({ change, setChange }) {
               class="input input-bordered input-md focus:outline-none"
               value={eggs_w3_input}
               onChange={(e) => {
-                setW3Input(e.target.value);
+                setW3Input(e.target.value.replace(/\D/g, ""));
               }}
             />
             <span className="px-[0.5rem]">1890g-2000g</span>
