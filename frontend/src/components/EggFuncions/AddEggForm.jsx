@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function AddEggForm({ change, setChange }) {
   const history = useHistory();
@@ -8,11 +9,14 @@ function AddEggForm({ change, setChange }) {
   const [eggs_w2_input, setW2Input] = useState("");
   const [eggs_w3_input, setW3Input] = useState("");
 
-  const [selectedFarm, setSelectedFarm] = useState();
+  const [selectedFarm, setSelectedFarm] = useState("");
 
   const user = JSON.parse(localStorage.getItem("userInfo"));
 
   const addEggsHandler = async () => {
+    if (!selectedFarm || !eggs_w1_input || !eggs_w2_input || !eggs_w3_input)
+      return toast.warning("Fill all fields");
+
     try {
       const config = {
         headers: {
@@ -36,16 +40,27 @@ function AddEggForm({ change, setChange }) {
     }
   };
 
-  useEffect(() => {}, [selectedFarm]);
+  const cancelHandler = async () => {
+    setW1Input("");
+    setW2Input("");
+    setW3Input("");
+    setSelectedFarm("");
+  };
+
+  const handleChangeFarm = (e) => {
+    console.log(e.target.value);
+    setSelectedFarm(e.target.value);
+  };
 
   return (
     <div class="modal-box">
       <div className="flex flex-col gap-2 w-[96%]">
         <select
           class="select select-bordered justify-center"
-          onChange={(e) => setSelectedFarm(e.target.value)}
+          onChange={handleChangeFarm}
+          value={selectedFarm}
         >
-          <option disabled selected>
+          <option key={5555} value={""} disabled>
             Select the farm
           </option>
           {user.farms.map((farm, index) => (
@@ -58,6 +73,7 @@ function AddEggForm({ change, setChange }) {
         <div class="form-control">
           <label class="input-group input-group-md justify-center">
             <input
+              disabled={!selectedFarm}
               type="text"
               placeholder="Type here"
               class="input input-bordered input-md focus:outline-none"
@@ -72,6 +88,7 @@ function AddEggForm({ change, setChange }) {
         <div class="form-control">
           <label class="input-group input-group-md justify-center">
             <input
+              disabled={!selectedFarm}
               type="text"
               placeholder="Type here"
               class="input input-bordered input-md focus:outline-none"
@@ -86,6 +103,7 @@ function AddEggForm({ change, setChange }) {
         <div class="form-control">
           <label class="input-group input-group-md justify-center">
             <input
+              disabled={!selectedFarm}
               type="text"
               placeholder="Type here"
               class="input input-bordered input-md focus:outline-none"
@@ -99,10 +117,14 @@ function AddEggForm({ change, setChange }) {
         </div>
       </div>
       <div class="modal-action justify-center">
-        <label for="my-modal-3" class="btn" onClick={addEggsHandler}>
+        <button
+          for="my-modal-3"
+          className={`btn ${!selectedFarm && "btn-disabled"}`}
+          onClick={addEggsHandler}
+        >
           Add
-        </label>
-        <label for="my-modal-3" class="btn">
+        </button>
+        <label for="my-modal-3" class="btn" onClick={cancelHandler}>
           cancel
         </label>
       </div>

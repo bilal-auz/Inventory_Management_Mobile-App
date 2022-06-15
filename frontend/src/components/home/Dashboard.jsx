@@ -83,7 +83,7 @@ function Dashboard() {
               </div>
               {/*price component  */}
               <div className={openTab === 2 ? "block w-[100%]" : "hidden"}>
-                <EggPrices user={user} change={change} />
+                <EggPrices user={user} change={change} setChange={setChange} />
               </div>
             </div>
           </div>
