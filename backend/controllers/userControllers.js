@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
+const Farm = require("../models/farmModel");
 
 const login = async (req, res) => {
   const { userId, password } = req.body;
@@ -39,13 +40,9 @@ const register = async (req, res) => {
     email,
     phoneNumber,
     cin,
-    farmName,
     companyName,
     authorizationNumber,
     ANPO_ID,
-    eggs_w1,
-    eggs_w2,
-    eggs_w3,
   } = req.body;
 
   const newUser = await User.create({
@@ -54,13 +51,9 @@ const register = async (req, res) => {
     email,
     phoneNumber,
     cin,
-    farmName,
     companyName,
     authorizationNumber,
     ANPO_ID,
-    eggs_w1,
-    eggs_w2,
-    eggs_w3,
   });
 
   if (newUser) {
@@ -73,4 +66,24 @@ const register = async (req, res) => {
   }
 };
 
-module.exports = { login, register };
+const addFarm = async (req, res) => {
+  const { farmName, owner, eggs_w1, eggs_w2, eggs_w3 } = req.body;
+
+  const newFarm = await Farm.create({
+    farmName,
+    owner,
+    eggs_w1,
+    eggs_w2,
+    eggs_w3,
+  });
+
+  if (newFarm) {
+    await User.findByIdAndUpdate(owner, { $push: { farms: newFarm._id } });
+
+    res.status(201).json({ newFarm });
+  } else {
+    res.status(400).send("Error Creating Farm");
+  }
+};
+
+module.exports = { login, register, addFarm };

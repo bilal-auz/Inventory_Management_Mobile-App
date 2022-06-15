@@ -1,3 +1,4 @@
+const Farm = require("../models/farmModel");
 const User = require("../models/userModel");
 
 const addEggs = async (req, res) => {
@@ -13,7 +14,7 @@ const addEggs = async (req, res) => {
 };
 
 const getEggs = async (req, res) => {
-  var totalEggs = await User.aggregate([
+  var totalEggs = await Farm.aggregate([
     {
       $group: {
         _id: null,

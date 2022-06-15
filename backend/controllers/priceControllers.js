@@ -5,6 +5,7 @@ const {
   getPrice_w2,
   getPrice_w3,
 } = require("../helpers/getPriceHelper");
+const Farm = require("../models/farmModel");
 
 const getPrices = async (req, res) => {
   //   const {
@@ -29,7 +30,7 @@ const getPrices = async (req, res) => {
     total_eggs_w1: w1,
     total_eggs_w2: w2,
     total_eggs_w3: w3,
-  } = await User.aggregate([
+  } = await Farm.aggregate([
     {
       $group: {
         _id: null,
