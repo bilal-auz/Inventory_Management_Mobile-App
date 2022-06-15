@@ -36,7 +36,7 @@ function EggPrices({ user, change }) {
         </div>
 
         <div class="stat items-center p-1">
-          <div class="stat-value text-[1.2rem] font-medium">1500-1800g</div>
+          <div class="stat-value text-[1.2rem] font-medium">1500g-1550g</div>
         </div>
       </div>
       <div class="stats shadow w-[100%] overflow-hidden">
@@ -45,7 +45,7 @@ function EggPrices({ user, change }) {
         </div>
 
         <div class="stat items-center p-1">
-          <div class="stat-value text-[1.2rem]  font-medium">1800-1900g</div>
+          <div class="stat-value text-[1.2rem]  font-medium">1760g-1870g</div>
         </div>
       </div>
       <div class="stats shadow w-[100%] overflow-hidden">
@@ -54,7 +54,7 @@ function EggPrices({ user, change }) {
         </div>
 
         <div class="stat items-center p-1">
-          <div class="stat-value text-[1.2rem]  font-medium">1900-2000g</div>
+          <div class="stat-value text-[1.2rem]  font-medium">1890g-2000g</div>
         </div>
       </div>
     </div>

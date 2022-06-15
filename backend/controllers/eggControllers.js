@@ -2,13 +2,16 @@ const Farm = require("../models/farmModel");
 const User = require("../models/userModel");
 
 const addEggs = async (req, res) => {
-  const data = { _id: req._id, eggs: req.body };
+  const data = { owner: req._id, eggs: req.body };
 
-  await User.findByIdAndUpdate(data._id, {
-    eggs_w1: data.eggs.eggs_w1,
-    eggs_w2: data.eggs.eggs_w2,
-    eggs_w3: data.eggs.eggs_w3,
-  });
+  await Farm.findOneAndUpdate(
+    { _id: data.eggs.farmId, owner: data.owner },
+    {
+      eggs_w1: data.eggs.eggs_w1,
+      eggs_w2: data.eggs.eggs_w2,
+      eggs_w3: data.eggs.eggs_w3,
+    }
+  );
 
   res.status(200).send(data);
 };

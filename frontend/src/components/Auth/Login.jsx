@@ -44,10 +44,27 @@ function Login() {
       setLoading(false);
     }
   };
+  const verifyToken = async (token) => {
+    try {
+      const config = {
+        headers: { "Content-type": "application/json" },
+      };
+
+      const { data } = await axios.post(
+        "/api/user/verifyToken",
+        { token },
+        config
+      );
+      if (data) history.push("/dashboard");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
-    if (user) history.push("/dashboard");
+
+    if (user) verifyToken(user.token);
   }, []);
 
   return (

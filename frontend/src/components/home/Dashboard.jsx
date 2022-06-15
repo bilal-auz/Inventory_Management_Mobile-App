@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import EggCount from "./../pages/EggCount";
 import EggPrices from "./../pages/EggPrices";
 import AddEggForm from "./../EggFuncions/AddEggForm";
+import axios from "axios";
 
 function Dashboard() {
   const history = useHistory();
@@ -12,8 +13,35 @@ function Dashboard() {
   const [openTab, setOpenTab] = useState(1);
   const [change, setChange] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
+  const verifyToken = async (token) => {
+    try {
+      const config = {
+        headers: { "Content-type": "application/json" },
+      };
+
+      const { data } = await axios.post(
+        "/api/user/verifyToken",
+        { token },
+        config
+      );
+      console.log(data);
+
+      if (!data) {
+        history.push("/");
+      } else {
+        setLoading(true);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
-    if (!user) history.push("/");
+    if (!user) return history.push("/");
+
+    verifyToken(user.token);
   }, []);
 
   const logoutHandler = () => {
@@ -23,7 +51,7 @@ function Dashboard() {
 
   return (
     <React.Fragment>
-      {user && (
+      {loading && (
         <div>
           <div className="relative">
             <div className="mx-auto flex flex-wrap flex-col w-[90%] h-full items-center justify-start md-5 content-center">

@@ -1,6 +1,6 @@
 const express = require("express");
 const { addEggs, getEggs } = require("../controllers/eggControllers");
-const { protect } = require("../middlewares/authMiddleware");
+const { protect, protectFarms } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 

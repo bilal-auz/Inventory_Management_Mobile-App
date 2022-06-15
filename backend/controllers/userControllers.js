@@ -1,13 +1,14 @@
 const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
 const Farm = require("../models/farmModel");
+const verifyToken = require("../helpers/verifyToken");
 
 const login = async (req, res) => {
   const { userId, password } = req.body;
 
   if (!userId || !password) return res.sendStatus(400).send("Fill all fields");
 
-  const user = await User.findOne({ userId });
+  const user = await User.findOne({ userId }).populate("farms");
 
   if (user && user.password == password) {
     res.status(201).send({
@@ -83,4 +84,17 @@ const addFarm = async (req, res) => {
   }
 };
 
-module.exports = { login, register, addFarm };
+const verifyTokenUser = (req, res) => {
+  console.log(req.body);
+  const { token } = req.body;
+
+  if (!token) return res.status(400).send("missing token");
+
+  const decoded = verifyToken(token);
+
+  if (!decoded) res.status(200).send(false);
+
+  res.status(200).send(decoded);
+};
+
+module.exports = { login, register, addFarm, verifyTokenUser };

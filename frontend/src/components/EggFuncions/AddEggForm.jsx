@@ -1,10 +1,16 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
-function AddEggForm({ user, change, setChange }) {
-  const [eggs_w1_input, setW1Input] = useState(user.eggs_w1);
-  const [eggs_w2_input, setW2Input] = useState(user.eggs_w2);
-  const [eggs_w3_input, setW3Input] = useState(user.eggs_w3);
+function AddEggForm({ change, setChange }) {
+  const history = useHistory();
+  const [eggs_w1_input, setW1Input] = useState("");
+  const [eggs_w2_input, setW2Input] = useState("");
+  const [eggs_w3_input, setW3Input] = useState("");
+
+  const [selectedFarm, setSelectedFarm] = useState();
+
+  const user = JSON.parse(localStorage.getItem("userInfo"));
 
   const addEggsHandler = async () => {
     try {
@@ -16,21 +22,41 @@ function AddEggForm({ user, change, setChange }) {
       };
 
       const body = {
+        farmId: selectedFarm,
         eggs_w1: eggs_w1_input,
         eggs_w2: eggs_w2_input,
         eggs_w3: eggs_w3_input,
       };
+
       const { data } = await axios.post("/api/egg/addEggs", body, config);
-      console.log(data);
+
       setChange(!change);
-    } catch (error) {}
+    } catch (error) {
+      history.push("/");
+    }
   };
+
+  useEffect(() => {}, [selectedFarm]);
 
   return (
     <div class="modal-box">
-      <div className="flex flex-col gap-2 ">
+      <div className="flex flex-col gap-2 w-[96%]">
+        <select
+          class="select select-bordered justify-center"
+          onChange={(e) => setSelectedFarm(e.target.value)}
+        >
+          <option disabled selected>
+            Select the farm
+          </option>
+          {user.farms.map((farm, index) => (
+            // <option>{farm.farmName}</option>
+            <option key={farm._id} value={farm._id}>
+              {"Farm " + (index + 1)}
+            </option>
+          ))}
+        </select>
         <div class="form-control">
-          <label class="input-group input-group-md">
+          <label class="input-group input-group-md justify-center">
             <input
               type="text"
               placeholder="Type here"
@@ -40,11 +66,11 @@ function AddEggForm({ user, change, setChange }) {
                 setW1Input(e.target.value);
               }}
             />
-            <span>1500-1800g</span>
+            <span className="px-[0.5rem]">1500g-1550g</span>
           </label>
         </div>
         <div class="form-control">
-          <label class="input-group input-group-md">
+          <label class="input-group input-group-md justify-center">
             <input
               type="text"
               placeholder="Type here"
@@ -54,11 +80,11 @@ function AddEggForm({ user, change, setChange }) {
                 setW2Input(e.target.value);
               }}
             />
-            <span>1800-1950g</span>
+            <span className="px-[0.5rem]">1760g-1870g</span>
           </label>
         </div>
         <div class="form-control">
-          <label class="input-group input-group-md">
+          <label class="input-group input-group-md justify-center">
             <input
               type="text"
               placeholder="Type here"
@@ -68,7 +94,7 @@ function AddEggForm({ user, change, setChange }) {
                 setW3Input(e.target.value);
               }}
             />
-            <span>1950-2050g</span>
+            <span className="px-[0.5rem]">1890g-2000g</span>
           </label>
         </div>
       </div>
