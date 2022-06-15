@@ -7,6 +7,7 @@ const farmSchema = mongoose.Schema(
     eggs_w1: { type: Number, required: true },
     eggs_w2: { type: Number, required: true },
     eggs_w3: { type: Number, required: true },
+    submitted: { type: Boolean, required: false },
   },
   { timestamps: true }
 );

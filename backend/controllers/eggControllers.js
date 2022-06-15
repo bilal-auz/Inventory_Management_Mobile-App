@@ -2,18 +2,35 @@ const Farm = require("../models/farmModel");
 const User = require("../models/userModel");
 
 const addEggs = async (req, res) => {
-  const data = { owner: req._id, eggs: req.body };
+  try {
+    const data = { owner: req._id, eggs: req.body };
+    const newEgg = await Farm.findById(
+      { _id: data.eggs.farmId },
+      { strict: false }
 
-  await Farm.findOneAndUpdate(
-    { _id: data.eggs.farmId, owner: data.owner },
-    {
-      eggs_w1: data.eggs.eggs_w1,
-      eggs_w2: data.eggs.eggs_w2,
-      eggs_w3: data.eggs.eggs_w3,
+      // , owner: data.owner, submitted: false
+      // {
+      //   eggs_w1: data.eggs.eggs_w1,
+      //   eggs_w2: data.eggs.eggs_w2,
+      //   eggs_w3: data.eggs.eggs_w3,
+      // },
+      // { new: true }
+    );
+
+    if (newEgg.submitted) throw new Error("Already Added");
+
+    if (!newEgg.submitted) {
+      newEgg.submitted = true;
+      newEgg.eggs_w1 = data.eggs.eggs_w1;
+      newEgg.eggs_w2 = data.eggs.eggs_w2;
+      newEgg.eggs_w3 = data.eggs.eggs_w3;
     }
-  );
 
-  res.status(200).send(data);
+    await newEgg.save();
+    res.status(200).send(newEgg);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 };
 
 const getEggs = async (req, res) => {
