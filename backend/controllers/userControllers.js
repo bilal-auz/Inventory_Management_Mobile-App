@@ -16,13 +16,10 @@ const login = async (req, res) => {
       lastName: user.lastName,
       phoneNumber: user.phoneNumber,
       cin: user.cin,
-      farmName: user.farmName,
       companyName: user.companyName,
       authorizationNumber: user.authorizationNumber,
       ANPO_ID: user.ANPO_ID,
-      eggs_w1: user.eggs_w1,
-      eggs_w2: user.eggs_w2,
-      eggs_w3: user.eggs_w3,
+      farms: user.farms,
       token: generateToken(user._id),
     });
   } else {
