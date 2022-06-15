@@ -162,7 +162,11 @@ function EggCount({ change, setChange }) {
             </div>
           </div>
           <div className="mt-4">
-            <label for="my-modal-3" class="btn modal-button bg-darkgreen">
+            <label
+              for="my-modal-3"
+              class="btn modal-button bg-darkgreen"
+              disabled={!user.farms.some((farm) => farm.submitted === false)}
+            >
               Add yours
               <svg
                 width="24"
@@ -182,7 +186,7 @@ function EggCount({ change, setChange }) {
             </label>
             <input type="checkbox" id="my-modal-3" class="modal-toggle" />
             <div class="modal sm:modal-middle absolute">
-              <AddEggForm user={user} change={change} setChange={setChange} />
+              <AddEggForm change={change} setChange={setChange} />
             </div>
           </div>
         </div>

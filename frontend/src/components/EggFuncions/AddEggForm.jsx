@@ -34,6 +34,12 @@ function AddEggForm({ change, setChange }) {
 
       const { data } = await axios.post("/api/egg/addEggs", body, config);
 
+      var index = user.farms.findIndex((farm) => farm._id == data._id);
+
+      user.farms[index] = data;
+
+      localStorage.setItem("userInfo", JSON.stringify(user));
+
       setChange(!change);
     } catch (error) {
       history.push("/");
@@ -65,8 +71,8 @@ function AddEggForm({ change, setChange }) {
           </option>
           {user.farms.map((farm, index) => (
             // <option>{farm.farmName}</option>
-            <option key={farm._id} value={farm._id}>
-              {"Farm " + (index + 1)}
+            <option key={farm._id} value={farm._id} disabled={farm.submitted}>
+              {"Farm " + (index + 1)} {farm.submitted && "(Already Added)"}
             </option>
           ))}
         </select>
