@@ -33,14 +33,17 @@ function Login() {
         config
       );
 
+      toast.success("Login Successful");
+
       localStorage.setItem("userInfo", JSON.stringify(res.data));
 
       setLoading(false);
 
+      console.log("hello");
       history.push("/dashboard");
       return;
     } catch (error) {
-      toast.warning(error.message);
+      toast.warning(error.response.data.message);
       setLoading(false);
     }
   };

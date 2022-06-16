@@ -6,7 +6,10 @@ const verifyToken = require("../helpers/verifyToken");
 const login = async (req, res) => {
   const { userId, password } = req.body;
 
-  if (!userId || !password) return res.sendStatus(400).send("Fill all fields");
+  if (!userId || !password) {
+    res.status(400);
+    throw new Error("Fill all fields");
+  }
 
   const user = await User.findOne({ userId }).populate("farms");
 
@@ -24,7 +27,8 @@ const login = async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(400).send("Invalid Login");
+    res.status(401);
+    throw new Error("Wrong Login Credentials");
   }
 };
 
