@@ -9,8 +9,8 @@ function Login() {
   const [show, setShow] = useState(false);
 
   // Temp
-  const [userId, setUserId] = useState("52169400225");
-  const [password, setPassword] = useState("Taoufiq123");
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const loginHandler = async () => {

@@ -65,7 +65,7 @@ const register = async (req, res) => {
 };
 
 const addFarm = async (req, res) => {
-  const { farmName, owner, eggs_w1, eggs_w2, eggs_w3 } = req.body;
+  const { farmName, owner, eggs_w1, eggs_w2, eggs_w3, submitted } = req.body;
 
   const newFarm = await Farm.create({
     farmName,
@@ -73,6 +73,7 @@ const addFarm = async (req, res) => {
     eggs_w1,
     eggs_w2,
     eggs_w3,
+    submitted,
   });
 
   if (newFarm) {
