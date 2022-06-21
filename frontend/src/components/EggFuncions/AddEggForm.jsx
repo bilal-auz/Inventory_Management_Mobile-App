@@ -83,12 +83,12 @@ function AddEggForm({ change, setChange }) {
           value={selectedFarm}
         >
           <option key={5555} value={""} disabled>
-            Select the farm
+            Sélectionnez la ferme
           </option>
           {user.farms.map((farm, index) => (
             // <option>{farm.farmName}</option>
             <option key={farm._id} value={farm._id} disabled={farm.submitted}>
-              {"Farm " + (index + 1)} {farm.submitted && "(Already Added)"}
+              {"Farm " + (index + 1)} {farm.submitted && "(Déjà ajouté)"}
             </option>
           ))}
         </select>
@@ -97,7 +97,7 @@ function AddEggForm({ change, setChange }) {
             <input
               disabled={!selectedFarm}
               type="text"
-              placeholder="Type here"
+              placeholder="Tapez ici"
               class="input input-bordered input-md focus:outline-none"
               value={eggs_w1_input}
               onChange={(e) => {
@@ -112,7 +112,7 @@ function AddEggForm({ change, setChange }) {
             <input
               disabled={!selectedFarm}
               type="text"
-              placeholder="Type here"
+              placeholder="Tapez ici"
               class="input input-bordered input-md focus:outline-none"
               value={eggs_w2_input}
               onChange={(e) => {
@@ -127,7 +127,7 @@ function AddEggForm({ change, setChange }) {
             <input
               disabled={!selectedFarm}
               type="text"
-              placeholder="Type here"
+              placeholder="Tapez ici"
               class="input input-bordered input-md focus:outline-none"
               value={eggs_w3_input}
               onChange={(e) => {
@@ -144,10 +144,10 @@ function AddEggForm({ change, setChange }) {
           className={`btn ${!selectedFarm && "btn-disabled"}`}
           onClick={addEggsHandler}
         >
-          Add
+          Ajoutez
         </button>
         <label for="my-modal-3" class="btn" onClick={cancelHandler}>
-          cancel
+          Annuler
         </label>
       </div>
     </div>

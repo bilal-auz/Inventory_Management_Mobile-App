@@ -43,7 +43,7 @@ function EggCount({ change, setChange }) {
         "November",
         "December",
       ];
-      const dateString = `${new Date().toLocaleDateString("en-US", {
+      const dateString = `${new Date().toLocaleDateString("fr-FR", {
         month: "long",
         day: "numeric",
         year: "numeric",
@@ -96,7 +96,7 @@ function EggCount({ change, setChange }) {
       {loading && (
         <div>
           <div className="bg-darkgreen rounded-box col-span-3 row-span-3 mx-2 grid flex-shrink-0 place-items-center items-center gap-4 p-4 py-8 shadow-xl xl:mx-0 xl:w-full svelte-1n6ue57 overflow-hidden relative">
-            <div className="absolute top-2 right-2">
+            <div className="absolute top-1 right-1">
               <button className="btn btn-square btn-sm" onClick={handleReload}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -115,8 +115,8 @@ function EggCount({ change, setChange }) {
               </button>
             </div>
             <div>
-              <p className="text-[1.3rem] text-[color:white]">
-                Eggs Count till Date:
+              <p className="text-[1.2rem] text-[color:white]">
+                Le nombre d’œufs jusqu’à présent:
               </p>
               <p className="text-[1.5rem] text-[color:white] font-bold">
                 {date}
@@ -167,7 +167,7 @@ function EggCount({ change, setChange }) {
               class="btn modal-button bg-darkgreen"
               disabled={!user.farms.some((farm) => farm.submitted === false)}
             >
-              Add yours
+              Ajoutez votre œufs
               <svg
                 width="24"
                 height="24"

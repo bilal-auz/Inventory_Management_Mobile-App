@@ -28,7 +28,7 @@ const login = async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error("Wrong Login Credentials");
+    throw new Error("identifiant ou mot de passe erroné");
   }
 };
 

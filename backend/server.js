@@ -18,7 +18,7 @@ const userRoute = require("./routes/userRoutes");
 const eggRoute = require("./routes/eggRoutes");
 const priceRoute = require("./routes/priceRoutes");
 
-app.get("/", (req, res) => {
+app.get("/api/", (req, res) => {
   res.send("API is running");
 });
 
