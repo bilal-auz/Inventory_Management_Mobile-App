@@ -74,6 +74,7 @@ function AddEggForm({ change, setChange }) {
     // setW1Input(e.target.value.match(regexNumbers).input);
     // console.log(e.which);
   };
+
   return (
     <div class="modal-box">
       <div className="flex flex-col gap-2 w-[96%]">
