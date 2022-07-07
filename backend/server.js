@@ -33,6 +33,6 @@ app.use(errorHandler);
 //   res.send("API is running");
 // });
 
-const PORT = process.env.PORT || 5550;
+const PORT = process.env.PORT || 80;
 
-app.listen(PORT, console.log("Server Started on Port: ", 5550));
+app.listen(PORT, console.log("Server Started on Port: ", PORT));
