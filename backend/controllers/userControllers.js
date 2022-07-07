@@ -4,6 +4,7 @@ const Farm = require("../models/farmModel");
 const verifyToken = require("../helpers/verifyToken");
 
 const login = async (req, res) => {
+  console.log("Login API call:", req.body);
   const { userId, password } = req.body;
 
   if (!userId || !password) {

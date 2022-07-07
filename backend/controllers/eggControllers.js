@@ -46,7 +46,13 @@ const getEggs = async (req, res) => {
     },
   ]);
 
-  res.status(200).json(totalEggs[0]);
+  totalEggs = {
+    total_eggs_w1: totalEggs[0].total_eggs_w1.toLocaleString("en"),
+    total_eggs_w2: totalEggs[0].total_eggs_w2.toLocaleString("en"),
+    total_eggs_w3: totalEggs[0].total_eggs_w3.toLocaleString("en"),
+    total: totalEggs[0].total.toLocaleString("en"),
+  };
+  res.status(200).json(totalEggs);
 };
 
 module.exports = { addEggs, getEggs };
