@@ -18,7 +18,11 @@ const userRoute = require("./routes/userRoutes");
 const eggRoute = require("./routes/eggRoutes");
 const priceRoute = require("./routes/priceRoutes");
 
-app.get("/api/", (req, res) => {
+app.get("/", (req, res) => {
+  res.send("API is running");
+});
+
+app.get("/api", (req, res) => {
   res.send("API is running");
 });
 
@@ -28,10 +32,6 @@ app.use("/api/price", priceRoute);
 
 app.use(notFound);
 app.use(errorHandler);
-
-// app.get("/", (req, res) => {
-//   res.send("API is running");
-// });
 
 const PORT = process.env.PORT || 80;
 

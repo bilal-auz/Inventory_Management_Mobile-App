@@ -55,4 +55,17 @@ const getEggs = async (req, res) => {
   res.status(200).json(totalEggs);
 };
 
-module.exports = { addEggs, getEggs };
+const resetEggs = async (req, res) => {
+  console.log(req);
+  try {
+    const resetEggs = await Farm.updateMany({
+      $set: { eggs_w1: 0, eggs_w2: 0, eggs_w3: 0, submitted: false },
+    });
+
+    res.status(200).send("Eggs reset");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+module.exports = { addEggs, getEggs, resetEggs };

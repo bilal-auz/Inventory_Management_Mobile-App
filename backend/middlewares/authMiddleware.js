@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 const verifyToken = require("../helpers/verifyToken");
 
 const protect = (req, res, next) => {
+  console.log("hellllo");
+
   let token;
 
   if (
@@ -21,6 +23,7 @@ const protect = (req, res, next) => {
 
     next();
   } else {
+    console.log("ERR1");
     res.status(401).send("Not Authorized, no token");
   }
 };

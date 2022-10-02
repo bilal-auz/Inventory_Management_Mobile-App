@@ -48,7 +48,7 @@ export default function Price() {
       };
 
       const { data } = await axios.get(
-        "http://192.168.11.102:5550/api/price/getPrices",
+        "https://egg-backend.herokuapp.com/api/price/getPrices",
         config
       );
 

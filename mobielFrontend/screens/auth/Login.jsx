@@ -22,10 +22,13 @@ function Login({ navigation }) {
   const [userId, setUserId] = useState("AA0000");
   const [userPassword, setUserPassword] = useState("123456");
   const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { signIn } = React.useContext(AuthContext);
 
   const loginHandler = async () => {
+    setIsLoading(true);
+
     // login Logic
     try {
       const config = {
@@ -33,7 +36,7 @@ function Login({ navigation }) {
       };
 
       const { data } = await axios.post(
-        "http://192.168.11.102:5550/api/user/login",
+        "https://egg-backend.herokuapp.com/api/user/login",
         { userId, password: userPassword },
         config
       );
@@ -45,6 +48,7 @@ function Login({ navigation }) {
       console.log(error.message);
       console.log(error.response.data.message);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -119,6 +123,7 @@ function Login({ navigation }) {
           </FormControl>
 
           <Button
+            isLoading={isLoading}
             w={"60%"}
             mt="5"
             size="md"

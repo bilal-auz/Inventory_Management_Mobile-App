@@ -5,6 +5,7 @@ import {
   Box,
   Center,
   VStack,
+  HStack,
   Heading,
   Flex,
   Divider,
@@ -57,6 +58,57 @@ function Count({ navigation }) {
     });
   };
 
+  const resetHandler = async () => {
+    setChange(!change);
+    // setIsLoaded(false);
+
+    console.log("reset");
+    toast.show({
+      description: "resetting",
+    });
+
+    try {
+      const user = JSON.parse(await AsyncStorage.getItem("userInfo"));
+      // setUser(user);
+
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        "http://192.168.56.1:5551/api/egg/resetEggs",
+        { Hello: "value" },
+        config
+      );
+
+      user.farms.map(
+        (farm) => (
+          (farm.eggs_w1 = 0),
+          (farm.eggs_w2 = 0),
+          (farm.eggs_w3 = 0),
+          (farm.submitted = false)
+        )
+      );
+
+      await AsyncStorage.setItem("userInfo", JSON.stringify(user));
+
+      setUser(user);
+      // var index = user.farms.findIndex((farm) => farm._id == data._id);
+
+      // user.farms[index] = data;
+
+      // await AsyncStorage.setItem("userInfo", JSON.stringify(user));
+      refreshHandler();
+      console.log("DDDONE");
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const logOutHandler = async () => {
     //logout logic
     signOut();
@@ -77,7 +129,7 @@ function Count({ navigation }) {
       };
 
       const { data } = await axios.get(
-        "http://192.168.11.102:5550/api/egg/getEggs",
+        "https://egg-backend.herokuapp.com/api/egg/getEggs",
         config
       );
 
@@ -116,7 +168,7 @@ function Count({ navigation }) {
       };
 
       const { data } = await axios.post(
-        "http://192.168.11.102:5550/api/egg/addEggs",
+        "https://egg-backend.herokuapp.com/api/egg/addEggs",
         body,
         config
       );
@@ -159,7 +211,7 @@ function Count({ navigation }) {
   };
 
   useEffect(() => {
-    // setIsLoaded(false);
+    setIsLoaded(false);
 
     getEggsCount();
 
@@ -187,7 +239,27 @@ function Count({ navigation }) {
         bg="#5c7f67"
         rounded={"2xl"}
       >
-        <Box position={"absolute"} top="2" right={"2"}>
+        <HStack
+          position={"absolute"}
+          alignItems="center"
+          width={"99%"}
+          maxWidth="100%"
+          top="2"
+          // right={"2"}
+          justifyContent={"space-between"}
+          // bg="black"
+        >
+          <Button
+            isLoading={!isLoaded}
+            backgroundColor="red.600"
+            rounded={"md"}
+            // endIcon={<FontAwesome name="refresh" size={24} color="white" />}
+            onPress={resetHandler}
+          >
+            <Text fontWeight={"800"} color="white">
+              RESET
+            </Text>
+          </Button>
           <Button
             isLoading={!isLoaded}
             backgroundColor="gray.600"
@@ -195,7 +267,7 @@ function Count({ navigation }) {
             endIcon={<FontAwesome name="refresh" size={24} color="white" />}
             onPress={refreshHandler}
           ></Button>
-        </Box>
+        </HStack>
 
         <Box>
           <Text fontSize={20} noOfLines={1} color="white">
