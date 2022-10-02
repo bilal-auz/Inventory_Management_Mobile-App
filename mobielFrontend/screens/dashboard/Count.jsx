@@ -79,7 +79,7 @@ function Count({ navigation }) {
       };
 
       const { data } = await axios.put(
-        "http://192.168.56.1:5551/api/egg/resetEggs",
+        "https://egg-backend.herokuapp.com/api/egg/resetEggs",
         { Hello: "value" },
         config
       );
